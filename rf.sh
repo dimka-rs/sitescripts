@@ -78,7 +78,7 @@ cat << EOF > $HTML
 <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css" rel="stylesheet">
 <link rel="icon" href="/rf/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/rf/favicon.ico" type="image/x-icon"> 
-<meta charset="UTF-8"><META HTTP-EQUIV="REFRESH" CONTENT="900">
+<meta charset="UTF-8"><META HTTP-EQUIV="REFRESH" CONTENT="1800">
 </head><body>
 <div id="visualization"></div>
 <script type="text/javascript">
