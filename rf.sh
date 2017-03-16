@@ -126,7 +126,14 @@ cat << EOF >> $HTML
   var options = {
     moveable: false,
     zoomable: false,
-    legend: true
+    legend: {
+        enabled: true,
+	right: {
+	    position: 'top-left'
+	    }
+        },
+    drawPoints: false,
+    yAxisOrientation: 'right'
   };
   var graph2d = new vis.Graph2d(container, CurItems, groups, options);
   var graph2d = new vis.Graph2d(container, PaiItems, groups, options);
