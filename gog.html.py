@@ -59,7 +59,7 @@ f.write('<!DOCTYPE html>\n')
 f.write('<html><head><meta charset="utf-8"><title>GOG discounts</title><META HTTP-EQUIV="REFRESH" CONTENT="3600">')
 f.write('<link rel="shortcut icon" href="/gog/favicon.png" type="image/png"></head><body><table cellpadding="5" border="0">\n')
 f.write('<p><a href="https://www.gog.com">GOG</a> discounts. Updated at '+strftime("%Y-%m-%d %H:%M:%S", localtime())+'.\n')
-f.write('<tr bgcolor="gray" align="center"><th>#</th><th>Image</th><th>Discount</th><th>Price</th><th>Title</th><th>Category</th></tr>\n')
+f.write('<tr bgcolor="gray" align="center"><th>#</th><th>Image</th><th>Discount</th><th>Price</th><th>Title</th><th>Category</th><th>Linux</th></tr>\n')
 
 i=0
 for x in listjpalls:
@@ -76,7 +76,7 @@ for x in listjpalls:
     else :
         bgc="#C0C0C0"
 
-    mystr='<tr bgcolor="'+bgc+'"><td>'+str(i)+'</td><td><img src="http:'+str(x['image'])+'_100.jpg"></td><td align="right">'+str(x['price']['discountPercentage'])+"%"+'</td><td align="right">'+str(x['price']['amount'])+'</td><td><a href="http://www.gog.com'+x['url'].encode("utf-8")+'">'+x['title'].encode("utf-8")+'</a></td><td>'+x['category'].encode("utf-8")+'</td></tr>\n'
+    mystr='<tr bgcolor="'+bgc+'"><td>'+str(i)+'</td><td><img src="http:'+str(x['image'])+'_100.jpg"></td><td align="right">'+str(x['price']['discountPercentage'])+"%"+'</td><td align="right">'+str(x['price']['amount'])+'</td><td><a href="http://www.gog.com'+x['url'].encode("utf-8")+'">'+x['title'].encode("utf-8")+'</a></td><td>'+x['category'].encode("utf-8")+'</td><td>'+('&#10004;' if x['worksOn']['Linux'] else '')+'</td></tr>\n'
     f.write(mystr)
 
 f.write('</table></body></html>\n')
