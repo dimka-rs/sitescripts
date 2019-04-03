@@ -1,13 +1,13 @@
 #!/bin/sh
 PAIFILE=~/public_html/rf/raiffeisen_pai.log
 PAITMP=/tmp/raiffeisen_pai.tmp
-PAIURL=http://www.raiffeisen-capital.ru/
+PAIURL=http://old.raiffeisen-capital.ru/
 DATE=`date +%Y-%m-%d\ %H:%M | tr '\n' ' '`
 LINES=360 ## 1 record/day * 2 lines * 180 days = 360
 
   ## pai
-  PAIQ=2.71663
-  PAID=23000
+  PAIQ=3.28487 ## was 2.71663
+  PAID=33000 ## was 23000
   wget $PAIURL -q -O - > $PAITMP
   LINE=`cat $PAITMP |grep --binary-files=text -n 'openfonds/mmvb/graphics'|tail -n 2|head -n 1|awk '{print $1}'|sed 's/://'`
   LINE=$(( LINE + 7 ))
@@ -25,5 +25,4 @@ LINES=360 ## 1 record/day * 2 lines * 180 days = 360
 
   tail -n $LINES $PAIFILE > $PAIFILE.tmp
   mv $PAIFILE.tmp $PAIFILE
-
 
