@@ -12,43 +12,44 @@ gogurl_end = "&price=discounted&sort=popularity"
 out_file_name="./index.html"
 json_file_name="all_products.json"
 
-def write_header(f, all_cats):
+def write_header(f, all_cats, games_count):
     f.write('<!DOCTYPE html>\n')
     f.write('<html><head><meta charset="utf-8"><title>GOG discounts</title><META HTTP-EQUIV="REFRESH" CONTENT="3600">')
     f.write('<link rel="shortcut icon" href="/gog/favicon.png" type="image/png"></head><body><table cellpadding="5" border="0">\n')
-    f.write('<p><a href="https://www.gog.com">GOG</a> discounts. Updated at '+strftime("%Y-%m-%d %H:%M:%S", localtime())+'.</p>\n')
+    f.write('<p><a href="https://www.gog.com">GOG</a> discounts. Updated at '+strftime("%Y-%m-%d %H:%M:%S", localtime())+'. Total games: '+str(games_count)+'.</p>\n')
     f.write('<script language="javascript">\n')
     f.write('function filter_change() {\n')
+    f.write('        var cnt = 0;\n')
     f.write('        var c = document.getElementById("category").value;\n')
     f.write('        var p = document.getElementById("platform").value;\n')
     f.write('        var list = document.getElementsByClassName("ALL");\n')
-    f.write('        console.log("CT: " + c + ", PL: "+p);\n')
     f.write('        for (var i = 0; i < list.length; i++)\n')
     f.write('        {\n')
-    f.write('            console.log(i + ": " + list.item(i).classList );\n')
     f.write('            if ( (p == "plt-ALL" || list.item(i).classList.contains(p)) && (c == "cat-ALL" || list.item(i).classList.contains(c)) )\n')
     f.write('            {\n')
     f.write('               list.item(i).style.display = "table-row";\n')
+    f.write('               cnt = cnt + 1;\n')
     f.write('            } else {\n')
     f.write('               list.item(i).style.display = "none";\n')
     f.write('            }\n')
     f.write('        }\n')
+    f.write('        document.getElementById("games_visible").innerHTML = cnt;\n')
     f.write('    } </script>\n')
     f.write('<p>\n')
-    f.write('Category: <select name="category" id="category" onchange="filter_change();">\n')
+    f.write('<span>Category: <select name="category" id="category" onchange="filter_change();">\n')
     f.write('    <option value="cat-ALL">ALL</option>\n')
 
     for k,v in all_cats.items():
         f.write('    <option value="cat-'+k.replace(" ", "")+'">'+k+' ('+str(v)+')</option>\n')
 
-    f.write('</select>\n')
-    f.write('Paltform: <select name="platform" id="platform" onchange="filter_change();">\n')
+    f.write('</select></span>\n')
+    f.write('<span>Paltform: <select name="platform" id="platform" onchange="filter_change();">\n')
     f.write('    <option value="plt-ALL">ALL</option>\n')
     f.write('    <option value="plt-lin">Linux</option>\n')
     f.write('    <option value="plt-win">Windows</option>\n')
     f.write('    <option value="plt-mac">Mac</option>\n')
-    f.write('</select>\n')
-    f.write('</p>\n')
+    f.write('</select><span>\n')
+    f.write('Games visible: <span id="games_visible">'+str(games_count)+'</span></p>\n')
     f.write('<tr bgcolor="gray" align="center"><th>#</th><th>Image</th><th>Discount</th><th>Price</th><th>Title</th><th>Category</th><th>Platform</th></tr>\n')
 
 
@@ -136,7 +137,7 @@ def generate_page_from_json(all_products, out_file):
 
     f = open(out_file,'w')
 
-    write_header(f, all_cats)
+    write_header(f, all_cats, len(all_products))
 
     idx = 0
     for x in all_products:
@@ -165,9 +166,6 @@ def generate_page_from_json(all_products, out_file):
         mac = 'mac' if x['worksOn']['Mac'] else ''
 
         write_line(f, bg_color, idx_str, image, discount, price, url, title, category, win, lin, mac)
-        ### FIXME:
-        if idx > 200:
-            break
 
     write_footer(f)
     f.close()
