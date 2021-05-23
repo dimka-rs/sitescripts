@@ -6,7 +6,7 @@ DATE=`date +%Y-%m-%d\ %H:%M | tr '\n' ' '`
 LINES=360 ## 1 record/day * 2 lines * 180 days = 360
 
 ## pai
-PAIQ=3.28487 ## was 2.71663
+PAIQ=1.77162 ## was 2.71663
 PAID=33000 ## was 23000
 #wget $PAIURL -q -O $PAITMP
 
