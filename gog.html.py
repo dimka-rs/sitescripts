@@ -8,8 +8,7 @@ from time import strftime, localtime
 
 gogurl_start = "https://www.gog.com/games/ajax/filtered?mediaType=game&page="
 gogurl_end = "&price=discounted&sort=popularity"
-#outfile="/home/d/dimkasorg/public_html/gog/index.html"
-out_file_name="./index.html"
+out_file_name="/home/d/dimkasorg/public_html/gog/index.html"
 json_file_name="all_products.json"
 
 def write_header(f, all_cats, games_count):

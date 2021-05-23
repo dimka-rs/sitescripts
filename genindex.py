@@ -107,7 +107,11 @@ def getData(file):
     if os.path.isfile(file):
         with open(file,'rb') as f:
             ## TODO: check if load ok
-            data=pickle.load(f)
+            try:
+                data=pickle.load(f)
+            except:
+                pass
+
     return data             
 
 def sendNotify(sensor, failed):
