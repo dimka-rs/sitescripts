@@ -8,7 +8,7 @@ LINES=360 ## 1 record/day * 2 lines * 180 days = 360
 ## pai
 PAIQ=1.77162 ## was 2.71663
 PAID=33000 ## was 23000
-#wget $PAIURL -q -O $PAITMP
+wget $PAIURL -q -O $PAITMP
 
 PAIPRICE=`cat $PAITMP | grep Акции | sed -e 's|^.*"promo_name":"«Райффайзен - Акции»"||g' | sed -e 's|</script>.*$||' | sed -e 's|"breadcrumbsName":"Акции".*$||g' | sed -e 's|^.*calculations||g' | grep unit_value | head -c 100 | sed -e 's|^.*"unit_value":"||g' | sed -e 's|".*$||g'`
 
